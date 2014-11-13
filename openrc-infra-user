@@ -1,0 +1,11 @@
+export OS_REGION_NAME=RegionOne
+export OS_IDENTITY_API_VERSION=2.0
+export OS_PASSWORD=passw0rd
+export OS_AUTH_URL=http://192.168.200.21:5000/v2.0
+export OS_USERNAME=snsapp-infra-user
+export OS_TENANT_NAME=SNSApp
+export OS_VOLUME_API_VERSION=2
+export OS_CACERT=/opt/stack/data/CA/int-ca/ca-chain.pem
+export OS_NO_CACHE=1
+
+function get_uuid () { cat - | grep " id " | awk '{print $4}'; }
