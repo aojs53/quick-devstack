@@ -33,14 +33,10 @@ sudo ip link set dev eth1 up
 
 nova aggregate-create ag1 az1
 id=$(nova aggregate-list | grep " ag1 " | cut -d"|" -f2)
-nova aggregate-add-host $id stack01
 nova aggregate-add-host $id stack02
 
 nova aggregate-create ag2 az2
 id=$(nova aggregate-list | grep " ag2 " | cut -d"|" -f2)
 nova aggregate-add-host $id stack03
-
-nova service-disable stack01 nova-compute
-cinder service-disable stack01@lvmdriver-1 cinder-volume
 
 env | grep ^OS_ > $HOME/openrc-keystone-admin
