@@ -23,11 +23,11 @@ neutron router-gateway-clear router1
 neutron net-delete Ext-Net
 
 neutron net-create Ext-Net --router:external=True
-neutron subnet-create --name Ext-Subnet --allocation-pool start=192.168.200.129,end=192.168.200.254 --gateway 192.168.200.1 Ext-Net 192.168.200.0/24
+neutron subnet-create --name Ext-Subnet --allocation-pool start=192.168.202.129,end=192.168.202.254 --gateway 192.168.202.1 Ext-Net 192.168.202.0/24
 neutron router-gateway-set router1 Ext-Net
 
-sudo ovs-vsctl add-port br-ex eth1
-sudo ip link set dev eth1 up
+sudo ovs-vsctl add-port br-ex eth2
+sudo ip link set dev eth2 up
 
 # glance image-create --name centos-base --disk-format qcow2 --container-format bare --is-public False --copy-from http://192.168.200.1/centos6-base.qcow2
 
