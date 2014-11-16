@@ -27,7 +27,7 @@ neutron subnet-create --name Ext-Subnet --allocation-pool start=192.168.202.129,
 neutron router-gateway-set router1 Ext-Net
 
 sudo ovs-vsctl add-port br-ex eth2
-sudo ip link set dev eth2 up
+# sudo ip link set dev eth2 up
 
 # glance image-create --name centos-base --disk-format qcow2 --container-format bare --is-public False --copy-from http://192.168.200.1/centos6-base.qcow2
 
