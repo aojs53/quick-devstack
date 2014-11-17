@@ -5,11 +5,11 @@ buildfile=/tmp/centos6.qcow2
 
 rm -f $buildfile
 qemu-img create -f qcow2 $buildfile 10G
-virt-install --virt-type kvm --name $vmname \
+virt-install --virt-type qemu --name $vmname \
   --ram 1024 --os-type=linux --os-variant=rhel6 \
   --nographics \
   --disk $buildfile,format=qcow2 \
-  --network network=external01 \
+  --network network=management \
   --location=http://mirror.centos.org/centos/6/os/x86_64/ \
   --initrd-inject centos6-ks.cfg \
   --extra-args="ks=file:/centos6-ks.cfg console=tty0 console=ttyS0,115200n8 serial"
