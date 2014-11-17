@@ -39,4 +39,4 @@ nova aggregate-create ag2 az2
 id=$(nova aggregate-list | grep " ag2 " | cut -d"|" -f2)
 nova aggregate-add-host $id stack03
 
-env | grep ^OS_ > $HOME/openrc-keystone-admin
+env | grep ^OS_ | sed -e 's/^OS_/export OS_/' > $HOME/openrc-keystone-admin
