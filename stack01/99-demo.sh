@@ -9,7 +9,16 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 dhcp-option-force=26,1400
 EOF
 elif [[ "$1" == "stack" && "$2" == "extra" ]]; then
-    :
+    sudo apt-get -y install gettext
+    cd /opt/stack/horizon
+    ./run_tests.sh -N --compilemessages
+    cd -
+    pofile=/usr/local/lib/python2.7/dist-packages/openstack_auth/locale/ja/LC_MESSAGES/django.po
+    mofile=/usr/local/lib/python2.7/dist-packages/openstack_auth/locale/ja/LC_MESSAGES/django.mo
+    if [ -f $pofile ]; then
+        sudo msgfmt -o $mofile $pofile
+    fi
+    sudo service apache2 reload
 fi
 
 if [[ "$1" == "unstack" ]]; then
