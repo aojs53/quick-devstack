@@ -1,16 +1,17 @@
 #!/bin/bash -e
 
+format=raw
 vmname=cent6_build$$
-buildfile=/tmp/centos6.qcow2
+buildfile=/tmp/centos6-$$.img
 
 rm -f $buildfile
-qemu-img create -f qcow2 $buildfile 10G
-virt-install --virt-type qemu --name $vmname \
-  --ram 1024 --os-type=linux --os-variant=rhel6 \
+qemu-img create -f $format $buildfile 10G
+virt-install --virt-type kvm --name $vmname \
+  --ram 2048 --os-type=linux --os-variant=rhel6 \
   --nographics \
-  --disk $buildfile,format=qcow2 \
-  --network network=management \
-  --location=http://mirror.centos.org/centos/6/os/x86_64/ \
+  --disk $buildfile,format=$format \
+  --network network=management,model=virtio \
+  --location=http://ftp.riken.jp/Linux/centos/6/os/x86_64/ \
   --initrd-inject centos6-ks.cfg \
   --extra-args="ks=file:/centos6-ks.cfg console=tty0 console=ttyS0,115200n8 serial"
 virsh destroy $vmname
