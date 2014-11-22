@@ -2,6 +2,8 @@
 
 if [[ "$1" == "source" ]]; then
     :
+elif [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
+    sudo apt-get -y install gettext
 elif [[ "$1" == "stack" && "$2" == "install" ]]; then
     :
 elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
@@ -9,10 +11,7 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
 dhcp-option-force=26,1400
 EOF
 elif [[ "$1" == "stack" && "$2" == "extra" ]]; then
-    sudo apt-get -y install gettext
-    cd /opt/stack/horizon
-    ./run_tests.sh -N --compilemessages
-    cd -
+    :
     pofile=/usr/local/lib/python2.7/dist-packages/openstack_auth/locale/ja/LC_MESSAGES/django.po
     mofile=/usr/local/lib/python2.7/dist-packages/openstack_auth/locale/ja/LC_MESSAGES/django.mo
     if [ -f $pofile ]; then
