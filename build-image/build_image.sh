@@ -10,7 +10,7 @@ virt-install --virt-type kvm --name $vmname \
   --ram 2048 --os-type=linux --os-variant=rhel6 \
   --nographics \
   --disk $buildfile,format=$format \
-  --network network=management,model=virtio \
+  --network network=openstack,model=virtio \
   --location=http://ftp.riken.jp/Linux/centos/6/os/x86_64/ \
   --initrd-inject centos6-ks.cfg \
   --extra-args="ks=file:/centos6-ks.cfg console=tty0 console=ttyS0,115200n8 serial"
