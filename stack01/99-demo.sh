@@ -1,11 +1,23 @@
 # demo.sh - Devstack extras script to setup demo env
 
+install_cli_bash_completion() {
+    local service=$1
+    local comp_file=/etc/bash_completion.d/${service}
+    local source_url=http://git.openstack.org/cgit/openstack/python-${service}client/plain/tools/${service}.bash_completion
+    if [ -f $comp_file ]; then
+        return
+    fi
+    sudo wget -q -O $comp_file $source_url
+}
+
 if [[ "$1" == "source" ]]; then
     :
 elif [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
     sudo apt-get -y install gettext
 elif [[ "$1" == "stack" && "$2" == "install" ]]; then
-    :
+    for service in nova neutron cinder keystone glance; do
+        install_cli_bash_completion $service
+    done
 elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
     cat <<EOF > /etc/neutron/dnsmasq-neutron.conf
 dhcp-option-force=26,1400
