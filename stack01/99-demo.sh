@@ -11,7 +11,9 @@ install_cli_bash_completion() {
 }
 
 if [[ "$1" == "source" ]]; then
-    :
+    if [[ "$OFFLINE" != "True" ]]; then
+        git pull
+    fi
 elif [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
     sudo apt-get -y install gettext
 elif [[ "$1" == "stack" && "$2" == "install" ]]; then
