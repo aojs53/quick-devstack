@@ -3,6 +3,13 @@
 TOP_DIR=$(cd $(dirname "$0") && pwd)
 DEVSTACK_DIR=$HOME/devstack
 
+sudo yum -y install iptables-services
+sudo systemctl disable firewalld
+sudo systemctl stop firewalld
+sudo systemctl enable iptables
+cat /dev/null > /etc/sysconfig/iptables
+sudo systemctl start iptables
+
 sudo pvcreate /dev/vdb
 sudo vgcreate cinder-volumes /dev/vdb
 sudo pvs

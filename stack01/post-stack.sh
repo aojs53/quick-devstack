@@ -22,19 +22,19 @@ sudo ip addr del 172.24.4.1/24 dev br-ex
 neutron router-gateway-clear router1
 neutron net-delete Ext-Net
 
-neutron net-create Ext-Net --router:external=True
-neutron subnet-create --name Ext-Subnet --allocation-pool start=192.168.100.129,end=192.168.100.179 --gateway 192.168.100.1 --disable-dhcp Ext-Net 192.168.100.0/24
+neutron net-create Ext-Net --router:external
+neutron subnet-create --name Ext-Subnet --allocation-pool start=192.168.200.129,end=192.168.200.179 --gateway 192.168.200.1 --disable-dhcp Ext-Net 192.168.200.0/24
 neutron router-gateway-set router1 Ext-Net
 
 sudo ovs-vsctl add-port br-ex eth1
 
 nova aggregate-create ag1 az1
 id=$(nova aggregate-list | grep " ag1 " | cut -d"|" -f2)
-nova aggregate-add-host $id stack02
+nova aggregate-add-host $id rdo02
 
 nova aggregate-create ag2 az2
 id=$(nova aggregate-list | grep " ag2 " | cut -d"|" -f2)
-nova aggregate-add-host $id stack03
+nova aggregate-add-host $id rdo03
 
 nova aggregate-list
 nova availability-zone-list

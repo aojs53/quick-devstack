@@ -7,7 +7,7 @@ install_cli_bash_completion() {
     if [ -f $comp_file ]; then
         return
     fi
-    sudo wget -q -O $comp_file $source_url
+    sudo -E wget -q -O $comp_file $source_url
 }
 
 if [[ "$1" == "source" ]]; then
@@ -15,7 +15,7 @@ if [[ "$1" == "source" ]]; then
         git pull
     fi
 elif [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
-    sudo apt-get -y install gettext
+    sudo yum -y install gettext
 elif [[ "$1" == "stack" && "$2" == "install" ]]; then
     for service in nova neutron cinder keystone glance; do
         install_cli_bash_completion $service
@@ -31,7 +31,7 @@ elif [[ "$1" == "stack" && "$2" == "extra" ]]; then
     if [ -f $pofile ]; then
         sudo msgfmt -o $mofile $pofile
     fi
-    sudo service apache2 reload
+    sudo service httpd reload
 fi
 
 if [[ "$1" == "unstack" ]]; then
